@@ -1,7 +1,8 @@
 # Files
 
 # rusvectores.org/static/models/rusvectores4/araneum/araneum_upos_skipgram_300_2_2018.vec.gz
-WORD2VEC_MODEL_FILE = r'''c:\Users\Dim\Downloads\araneum_upos_skipgram_300_2_2018.vec'''
+w2w_model_file = r'''c:\Users\Dim\Downloads\araneum_upos_skipgram_300_2_2018.vec'''
+clf_model_file = r"c:\Users\Dim\git\model_fitting_demo\rf_classifier.pkl"
 
 # Pages
 index_page = r"index.html"

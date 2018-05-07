@@ -33,7 +33,7 @@ class Application(tornado.web.Application):
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             xsrf_cookies=True,
-            # TODO
+            # TO#DO
             cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
             login_url="/auth/login",
             static_path=os.path.join(os.path.dirname(__file__), "static"),
@@ -100,11 +100,30 @@ class SimilarityHandler(BaseHandler):
 
 
 class SameStemRussianHandler(BaseHandler):
-    pass
+    async def get(self, slug=None):
+        try:
+            key_dict = json.loads(slug)
+            print(json.dumps(mr.get_same_stem_russian(key_dict['word1'], key_dict['word2']),
+                             separators=(',', ':'),
+                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
+            self.render(constants.empty_page,
+                        response=json.dumps(mr.get_same_stem_russian(key_dict['word1'], key_dict['word2']),
+                                            separators=(',', ':'),
+                                            sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
+        except:
+            self.render(constants.value_error_page)
 
 
 class PartSpeechHandler(BaseHandler):
-    pass
+    async def get(self, slug=None):
+        try:
+            key_dict = json.loads(slug)
+            self.render(constants.empty_page,
+                        response=json.dumps(mr.get_part_of_speech(key_dict['words']),
+                                            separators=(',', ':'),
+                                            sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
+        except:
+            self.render(constants.value_error_page)
 
 
 class MakeMoveHandler(BaseHandler):
@@ -116,7 +135,7 @@ model = None
 
 def main():
     global model
-    model = sem.load_w2v_model(constants.WORD2VEC_MODEL_FILE)
+    model = sem.load_w2v_model(constants.w2w_model_file)
 
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())

@@ -5,7 +5,7 @@
     <title>Codenames Captain API</title>
     <script type="text/javascript">
         //<![CDATA[
-        window.__cfRocketOptions = {byc: 0, p: 0, petok: "0694eb584b98e58cee4b3d129ed4e1310bbdd5d1-1525527434-1800"};
+        window.__cfRocketOptions = {byc: 0, p: 0, petok: "7ef22568825ff3bf23c978335143d3d6787843bb-1525685697-1800"};
         //]]>
     </script>
     <script type="text/javascript"
@@ -4795,7 +4795,9 @@
             class="hljs-string">"цех"</span>]
 }
 </code></pre>
-<h3><a id="22_same_stem_russianobj_54"></a>2.2. /same_stem_russian/&lt;obj&gt;</h3>
+<p>Возвращает массив с размеченными частями речи слов массива <strong>words</strong> в формате json.<br>
+    При неправильных входных данных возвращает строку “ValueError”.</p>
+<h3><a id="22_same_stem_russianobj_56"></a>2.2. /same_stem_russian/&lt;obj&gt;</h3>
 <p>Пример:</p>
 <pre><code class="language-js">obj = {
  <span class="hljs-string">"word1"</span>: <span class="hljs-string">"сталь_NOUN"</span>,
@@ -4805,8 +4807,8 @@
 <p>Возвращает вероятность того, что слова однокоренные в формате json.<br>
     При неправильных входных данных возвращает строку “ValueError”.<br>
     Слова с омонимичными корнями будут проходить проверку аналогично однокоренным словам.</p>
-<h3><a id="3__66"></a>3. Стратегия</h3>
-<h4><a id="31_make_a_moveobj_67"></a>3.1. /make_a_move/&lt;obj&gt;</h4>
+<h3><a id="3__68"></a>3. Стратегия</h3>
+<h4><a id="31_make_a_moveobj_69"></a>3.1. /make_a_move/&lt;obj&gt;</h4>
 <p>Пример:</p>
 <pre><code class="language-js">obj = {
   <span class="hljs-string">"words"</span>: {
