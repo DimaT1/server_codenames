@@ -103,9 +103,6 @@ class SameStemRussianHandler(BaseHandler):
     async def get(self, slug=None):
         try:
             key_dict = json.loads(slug)
-            print(json.dumps(mr.get_same_stem_russian(key_dict['word1'], key_dict['word2']),
-                             separators=(',', ':'),
-                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
             self.render(constants.empty_page,
                         response=json.dumps(mr.get_same_stem_russian(key_dict['word1'], key_dict['word2']),
                                             separators=(',', ':'),
