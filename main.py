@@ -13,7 +13,7 @@ import constants
 import semantics as sem
 import morphology as mr
 
-define("port", default=8888, help="run on the given port", type=int)
+define("port", default=8887, help="run on the given port", type=int)
 
 
 # define("host", default="0.0.0.0") ##localhost now
@@ -62,7 +62,7 @@ class AssociationsHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps(sem.get_associations(key_dict['word'], model, key_dict['count']),
+                        response=json.dumps(sem.get_associations(key_dict['words'], model, key_dict['count']),
                                             separators=(',', ':'),
                                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:

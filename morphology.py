@@ -1,4 +1,3 @@
-from sklearn.model_selection import GridSearchCV
 from sklearn.externals import joblib
 import pandas as pd
 from nltk.stem.snowball import SnowballStemmer

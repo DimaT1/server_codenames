@@ -25,10 +25,10 @@ def get_similarity(word1: str, word2: str, v2w_model) -> list:
 
 
 # Получить tn ассоциаций
-def get_associations(word: str, w2v_model, tn=10) -> list:
+def get_associations(words: list, w2v_model, tn=10) -> list:
     assoc_lst = []
     try:
-        assoc_lst = w2v_model.most_similar(positive=[word], topn=tn)
+        assoc_lst = w2v_model.most_similar(positive=words, topn=tn)
     except MemoryError:
         pass
     finally:
