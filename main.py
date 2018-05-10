@@ -62,7 +62,7 @@ class AssociationsHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps(sem.get_associations(key_dict['words'], model, key_dict['count']),
+                        response=json.dumps({"most_similar": sem.get_associations(key_dict['words'], model, key_dict['count'])},
                                             separators=(',', ':'),
                                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:
@@ -116,7 +116,7 @@ class PartSpeechHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps(mr.get_part_of_speech(key_dict['words']),
+                        response=json.dumps({"words": mr.get_part_of_speech(key_dict['words'])},
                                             separators=(',', ':'),
                                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except:
