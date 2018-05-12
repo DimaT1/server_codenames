@@ -3,6 +3,7 @@
 # rusvectores.org/static/models/rusvectores4/araneum/araneum_upos_skipgram_300_2_2018.vec.gz
 w2w_model_file = r'''c:\Users\Dim\Downloads\araneum_upos_skipgram_300_2_2018.vec'''
 clf_model_file = r"c:\Users\Dim\git\model_fitting_demo\rf_classifier.pkl"
+words_source_csv = r'c:\Users\Dim\Downloads\foo.csv'
 
 # Pages
 index_page = r"index.html"
@@ -21,6 +22,7 @@ same_stem_russian_link = r"/same_stem_russian/([^/]*)"
 part_of_speech_link = r"/part_of_speech/([^/]*)"
 similarity_link = r"/similarity/([^/]*)"
 make_a_move_link = r"/make_a_move/([^/]*)"
+game_generator_link = r"/game_generator/"
 
 github_link = r"https://github.com/DimaT1/server_codenames"
 

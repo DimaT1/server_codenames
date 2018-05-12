@@ -12,6 +12,7 @@ import json
 import constants
 import semantics as sem
 import morphology as mr
+import strategy as st
 
 define("port", default=8887, help="run on the given port", type=int)
 
@@ -28,7 +29,8 @@ class Application(tornado.web.Application):
             (constants.same_stem_russian_link, SameStemRussianHandler),
             (constants.part_of_speech_link, PartSpeechHandler),
             (constants.similarity_link, SimilarityHandler),
-            (constants.make_a_move_link, MakeMoveHandler)
+            (constants.make_a_move_link, MakeMoveHandler),
+            (constants.game_generator_link, GameGeneratorHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -62,9 +64,10 @@ class AssociationsHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps({"most_similar": sem.get_associations(key_dict['words'], model, key_dict['count'])},
-                                            separators=(',', ':'),
-                                            sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
+                        response=json.dumps(
+                            {"most_similar": sem.get_associations(key_dict['words'], model, key_dict['count'])},
+                            separators=(',', ':'),
+                            sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:
             self.render(constants.key_error_page)
         except ValueError:
@@ -125,6 +128,15 @@ class PartSpeechHandler(BaseHandler):
 
 class MakeMoveHandler(BaseHandler):
     pass
+
+
+class GameGeneratorHandler(BaseHandler):
+    async def get(self):
+        try:
+            self.render(constants.empty_page, response=json.dumps(st.game_generator()), separators=(',', ':'),
+                        sort_keys=True, indent=4, ensure_ascii=False)
+        except:
+            self.render(constants.value_error_page)
 
 
 model = None
