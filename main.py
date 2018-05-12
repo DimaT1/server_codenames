@@ -30,7 +30,8 @@ class Application(tornado.web.Application):
             (constants.part_of_speech_link, PartSpeechHandler),
             (constants.similarity_link, SimilarityHandler),
             (constants.make_a_move_link, MakeMoveHandler),
-            (constants.game_generator_link, GameGeneratorHandler)
+            (constants.game_generator_link, GameGeneratorHandler),
+            (constants.player_simulator_link, PlayerSimulatorHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -65,7 +66,7 @@ class AssociationsHandler(BaseHandler):
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
                         response=json.dumps(
-                            {"most_similar": sem.get_associations(key_dict['words'], model, key_dict['count'])},
+                            {"most_similar": sem.get_associations(key_dict['words'], key_dict['count'])},
                             separators=(',', ':'),
                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:
@@ -79,7 +80,7 @@ class VectorsHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps([i.tolist() for i in sem.get_vectors(key_dict['words'], model)],
+                        response=json.dumps([i.tolist() for i in sem.get_vectors(key_dict['words'])],
                                             separators=(',', ':'),
                                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:
@@ -93,7 +94,7 @@ class SimilarityHandler(BaseHandler):
         try:
             key_dict = json.loads(slug)
             self.render(constants.empty_page,
-                        response=json.dumps(sem.get_similarity(key_dict['word1'], key_dict['word2'], model),
+                        response=json.dumps(sem.get_similarity(key_dict['word1'], key_dict['word2']),
                                             separators=(',', ':'),
                                             sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
         except KeyError:
@@ -139,13 +140,19 @@ class GameGeneratorHandler(BaseHandler):
             self.render(constants.value_error_page)
 
 
-model = None
+class PlayerSimulatorHandler(BaseHandler):
+    async def get(self, slug=None):
+        try:
+            key_dict = json.loads(slug)
+            self.render(constants.empty_page,
+                        response=json.dumps({"words": st.player_simulator(key_dict)},
+                                            separators=(',', ':'),
+                                            sort_keys=True, indent=4, ensure_ascii=False).encode('utf-8'))
+        except:
+            self.render(constants.value_error_page)
 
 
 def main():
-    global model
-    model = sem.load_w2v_model(constants.w2w_model_file)
-
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(options.port)

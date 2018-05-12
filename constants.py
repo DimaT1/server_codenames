@@ -23,6 +23,7 @@ part_of_speech_link = r"/part_of_speech/([^/]*)"
 similarity_link = r"/similarity/([^/]*)"
 make_a_move_link = r"/make_a_move/([^/]*)"
 game_generator_link = r"/game_generator/"
+player_simulator_link = r"/player_simulator/([^/]*)"
 
 github_link = r"https://github.com/DimaT1/server_codenames"
 

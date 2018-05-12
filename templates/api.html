@@ -106,6 +106,23 @@
     <h4 id="game_generator">3.2. /game_generator/</h4>
     <p>Возвращает игровое поле в формате json.<br>
         Все слова с игрового поля гарантированно работают с моделью w2v.</p>
+    <h4 id="player_simulatorobj">3.3. /player_simulator/&lt;obj&gt;</h4>
+    <p>Пример:</p>
+    <pre class=" language-js"><code class="prism  language-js">obj <span class="token operator">=</span> <span
+            class="token punctuation">{</span>
+  <span class="token string">"words"</span><span class="token punctuation">:</span> <span
+                class="token punctuation">[</span><span class="token string">'среда_NOUN'</span><span
+                class="token punctuation">,</span> <span class="token string">'площадь_NOUN'</span><span
+                class="token punctuation">,</span> <span class="token string">'зебра_NOUN'</span><span
+                class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"association"</span><span class="token punctuation">:</span> <span class="token string">"дорога_NOUN"</span><span
+                class="token punctuation">,</span>
+  <span class="token string">"count"</span><span class="token punctuation">:</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre>
+    <p>Возвращает наиболее вероятный ход игрока в формате json.<br>
+        При неправильных входных данных возвращает строку “ValueError”.<br>
+        При отсутствии слов в словаре вернёт строку “VocabularyError”.</p>
 </div>
 </body>
 

@@ -1,5 +1,6 @@
 import constants
 import random
+import semantics
 
 
 def game_generator():
@@ -22,3 +23,19 @@ def game_generator():
             "white": white,
             "black": black
         }
+
+
+def player_simulator(key_dict: dict) -> list:
+    words = key_dict["words"]
+    association = key_dict["association"]
+    count = key_dict["count"]
+
+    words = list(map(lambda x: x[0].lower() + x[1:], words))
+
+    for word in words:
+        if semantics.get_vectors([word]) == []:
+            raise ValueError
+
+    words = [(semantics.get_similarity(association, i), i) for i in words]
+    words.sort(reverse=True)
+    return words[:key_dict["count"]]
